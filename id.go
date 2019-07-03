@@ -35,7 +35,7 @@ func NewIdFromVanityUrl(vanityUrl, apiKey string) (id steamId, err error) {
 		return
 	}
 
-	id = NewIdFrom64bit(resp.SteamID)
+	id = NewIdFrom64bit(resp.Response.SteamID)
 	return
 }
 

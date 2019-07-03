@@ -91,9 +91,11 @@ func GetPlayerSummaries(ids []uint64, apiKey string) ([]PlayerSummary, error) {
 
 // ResolveVanityURLResponse resolves the response from steam
 type ResolveVanityURLResponse struct {
-	Success int
-	SteamID uint64 `json:",omitempty,string"`
-	Message string `json:",omitempty"`
+	Response struct {
+		Success int
+		SteamID uint64 `json:"steamid,string"`
+		Message string
+	}
 }
 
 // ResolveVanityURL should return a response
@@ -108,8 +110,8 @@ func ResolveVanityURL(vanityURL string, apiKey string) (*ResolveVanityURLRespons
 	if err != nil {
 		return nil, err
 	}
-	if resp.Success != 1 {
-		err = errors.New(resp.Message)
+	if resp.Response.Success != 1 {
+		err = errors.New(resp.Response.Message)
 	}
 	return &resp, err
 }
